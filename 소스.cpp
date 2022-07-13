@@ -166,3 +166,44 @@ int DeleteCalendar(CALENDAR* calendar, int cnt) {
 	printf("└────────────────────────────────────────────────────────┘\n\n");
 	return cnt;
 }
+
+void UpdateCalendar(CALENDAR* calendar, int cnt) {
+	int year, month, day;
+	int update_checker = 0;
+	char* plan = (char*)malloc(sizeof(char) * 100);
+	system("cls");
+	if (cnt == 0) {
+		printf("┌────────────────────────────────────────────────────────┐\n");
+		printf("│                 등록된 일정이 없습니다.                │\n");
+		printf("└────────────────────────────────────────────────────────┘\n\n");
+		return;
+	}
+	printf("┌────────────────────────────────────────────────────────┐\n");
+	printf("                      년도 입력 : ");
+	scanf("%d", &year);
+	printf("                      월 입력 : ");
+	scanf("%d", &month);
+	printf("                      일 입력 : ");
+	scanf("%d", &day);
+	printf("└────────────────────────────────────────────────────────┘\n\n");
+	for (int i = 0; i < cnt; i++) {
+		if (calendar[i].year == year && calendar[i].month == month && calendar[i].day == day) {
+			rewind(stdin);
+			printf("변경할 일정을 입력 : ");
+			gets_s(plan, sizeof(char) * 100);
+			strcpy(calendar[i].to_do, plan);
+			printf("┌────────────────────────────────────────────────────────┐\n");
+			printf("│                        수정완료                        │\n");
+			printf("└────────────────────────────────────────────────────────┘\n\n");
+			update_checker = 1;
+			return;
+		}
+		else  update_checker = 0;
+	}
+	if (update_checker == 0) {
+		printf("┌────────────────────────────────────────────────────────┐\n");
+		printf("│   해당 날짜에 일정이 없으므로 일정추가하기를 해주세요. │\n");
+		printf("└────────────────────────────────────────────────────────┘\n\n");
+		return;
+	}
+}
