@@ -77,6 +77,40 @@ int ShowMenu() {
 	}
 	else return menu_number;
 }
+int InsertCalendar(CALENDAR* calendar, int cnt) {
+	int year, month, day;
+	char* plan;
+	int day_of_month[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	system("cls");
+	printf("┌────────────────────────────────────────────────────────┐\n");
+	printf("                      년도 입력 : ");
+	scanf("%d", &year);
+	printf("                      월 입력 : ");
+	scanf("%d", &month);
+	printf("                      일 입력 : ");
+
+	scanf("%d", &day);
+	printf("└────────────────────────────────────────────────────────┘\n\n");
+	if ((day_of_month[month] < day || day < 0) || (month < 1 || month > 12)) {
+		system("cls");
+		printf("┌────────────────────────────────────────────────────────┐\n");
+		printf("│                날짜를 잘못 입력했습니다.               │\n");
+		printf("└────────────────────────────────────────────────────────┘\n\n");
+	}
+	else {
+		calendar[cnt].year = year;
+		calendar[cnt].month = month;
+		calendar[cnt].day = day;
+		printf("일정 입력 : ");
+		rewind(stdin);
+		gets_s(calendar[cnt].to_do, 100);
+		cnt++;
+		printf("┌────────────────────────────────────────────────────────┐\n");
+		printf("│                        추가완료                        │\n");
+		printf("└────────────────────────────────────────────────────────┘\n\n");
+	}
+	return cnt;
+}
 int GetDayOfMonth(int year, int month) {
 	int day_of_month[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	day_of_month[2] += GetLeafYear(year);
