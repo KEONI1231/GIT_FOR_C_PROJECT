@@ -17,6 +17,8 @@ int GetDayOfMonth(int year, int num);
 int GetLeafYear(int year);
 int GetDay(int year, int month);
 void PrintCalendar(CALENDAR* calendar, int, int, int year, int month); //15 ~ 18 조회 기능 함수내에서 호출하는 조회기능을 위한 부가적인 함수
+int InsertCalendar(CALENDAR* calendar, int cnt);
+void UpdateCalendar(CALENDAR* calendar, int cnt);
 int main() {
 	int menu_number = 0;
 	int data_cnt_index = 0;  //현재 저장된 일정 데이터의 수를 의미. 최대 100개이며 삽입시 +1올려주고, 삭제시 -1 해줌.
@@ -30,13 +32,13 @@ int main() {
 				SerchCalendar(calendar, data_cnt_index);
 				break;
 			case 2:
-				//Insert 함수호출
+				data_cnt_index = InsertCalendar(calendar, data_cnt_index);
 				break;
 			case 3:
-				//update 함수호출
+				UpdateCalendar(calendar, data_cnt_index);
 				break;
 			case 4:
-				DeleteCalendar(calendar, data_cnt_index);
+				data_cnt_index = DeleteCalendar(calendar, data_cnt_index);
 				break;
 			case 5:
 				printf("┌────────────────────────────────────────────────────────┐\n");
@@ -190,8 +192,6 @@ int DeleteCalendar(CALENDAR* calendar, int cnt) {
 	for (int i = 0; i < cnt; i++) {
 		if (calendar[i].year == year && calendar[i].month == month && calendar[i].day == day) {
 			rewind(stdin);
-			printf("변경할 일정을 입력 : ");
-			strcpy(calendar[i].to_do, "\0");
 			cnt = cnt - 1;
 		}
 	}
